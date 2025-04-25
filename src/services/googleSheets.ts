@@ -1,4 +1,3 @@
-
 // Define the Property interface locally first
 export interface Property {
   buildingName: string;
@@ -27,37 +26,49 @@ export const fetchProperties = async (query?: string): Promise<Property[]> => {
   try {
     console.log('Fetching properties with query:', query);
     
+    // Add more detailed logging
+    console.log('Fetch URL:', 'https://nmzbrzekynvyxkalxlvl.supabase.co/functions/v1/fetch-properties');
+    
     // Add a short timeout to allow for network issues
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     
-    const response = await fetch('https://nmzbrzekynvyxkalxlvl.supabase.co/functions/v1/fetch-properties', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5temJyemVreW52eXhrYWx4bHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkxMTU5NzEsImV4cCI6MjAyNDY5MTk3MX0.v_oO4kVxNJUzMFOK7tFOSA-icFwcW6wXJ0gDt0HZqiU'
-      },
-      body: JSON.stringify({ query: query || '' }),
-      signal: controller.signal,
-      // Adding mode and credentials to handle potential CORS issues
-      mode: 'cors',
-    });
-    
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Fetch error details:', {
-        status: response.status,
-        statusText: response.statusText,
-        errorBody: errorText
+    try {
+      const response = await fetch('https://nmzbrzekynvyxkalxlvl.supabase.co/functions/v1/fetch-properties', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5temJyemVreW52eXhrYWx4bHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkxMTU5NzEsImV4cCI6MjAyNDY5MTk3MX0.v_oO4kVxNJUzMFOK7tFOSA-icFwcW6wXJ0gDt0HZqiU'
+        },
+        body: JSON.stringify({ query: query || '' }),
+        signal: controller.signal,
+        // Adding mode and credentials to handle potential CORS issues
+        mode: 'cors',
       });
-      throw new Error(`Server responded with ${response.status}: ${errorText}`);
-    }
+    
+      clearTimeout(timeoutId);
 
-    const data = await response.json();
-    console.log('Properties received:', data.length);
-    return data;
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Detailed fetch error:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorBody: errorText
+        });
+        throw new Error(`Server responded with ${response.status}: ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log('Properties received:', data.length);
+      return data;
+    } catch (fetchError) {
+      console.error('Fetch request error:', {
+        name: fetchError.name,
+        message: fetchError.message,
+        stack: fetchError.stack
+      });
+      throw fetchError;
+    }
   } catch (error) {
     console.error('Comprehensive fetch properties error:', {
       name: error.name,
