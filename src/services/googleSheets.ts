@@ -1,5 +1,5 @@
 
-interface Property {
+export interface Property {
   buildingName: string;
   address: string;
   neighborhood: string;
@@ -24,7 +24,7 @@ interface Property {
 
 export const fetchProperties = async (query?: string): Promise<Property[]> => {
   try {
-    const response = await fetch('https://<your-project>.supabase.co/functions/fetch-properties', {
+    const response = await fetch('https://your-project.supabase.co/functions/fetch-properties', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
