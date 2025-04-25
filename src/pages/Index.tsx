@@ -1,41 +1,24 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import SearchBar from '@/components/SearchBar';
 import ResultsGrid from '@/components/ResultsGrid';
-
-// This is mock data - replace with actual Google Sheets integration
-const mockProperties = [
-  {
-    buildingName: "Sunset Apartments",
-    unitNumber: "101",
-    availabilityDate: "2024-05-01",
-    contactName: "John Smith",
-    phone: "(555) 123-4567",
-    email: "john@example.com"
-  },
-  {
-    buildingName: "Ocean View Heights",
-    unitNumber: "304",
-    availabilityDate: "2024-05-15",
-    contactName: "Jane Doe",
-    phone: "(555) 987-6543",
-    email: "jane@example.com"
-  }
-];
+import { fetchProperties } from '@/services/googleSheets';
+import { toast } from '@/components/ui/sonner';
 
 const Index = () => {
-  const [properties, setProperties] = useState(mockProperties);
-  const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const { data: properties = [], isLoading, error } = useQuery({
+    queryKey: ['properties', searchQuery],
+    queryFn: () => fetchProperties(searchQuery),
+    onError: (error) => {
+      toast.error('Failed to fetch properties. Please try again later.');
+    },
+  });
 
   const handleSearch = (query: string) => {
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setProperties(mockProperties.filter(p => 
-        p.buildingName.toLowerCase().includes(query.toLowerCase())
-      ));
-      setIsLoading(false);
-    }, 1000);
+    setSearchQuery(query);
   };
 
   return (
