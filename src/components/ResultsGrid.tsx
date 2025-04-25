@@ -19,12 +19,16 @@ export default function ResultsGrid({ properties, isLoading, searchPerformed }: 
     );
   }
 
-  if (!searchPerformed || properties.length === 0) {
+  if (searchPerformed && properties.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
         <div className="text-gray-500">No units found. Please try searching another neighborhood</div>
       </div>
     );
+  }
+
+  if (!searchPerformed) {
+    return null;
   }
 
   return (
@@ -35,3 +39,4 @@ export default function ResultsGrid({ properties, isLoading, searchPerformed }: 
     </div>
   );
 }
+
