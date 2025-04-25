@@ -38,6 +38,17 @@ const Index = () => {
         
         <div className="mb-12">
           <SearchBar onSearch={handleSearch} />
+
+            {searchQuery && (
+            <div className="flex justify-center mt-4">
+            <button
+            onClick={() => setSearchQuery('')}
+            className="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors"
+            >
+              Clear Filters
+            </button>
+            </div>
+            )}     
         </div>
         
         {isError && (
