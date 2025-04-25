@@ -10,10 +10,12 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchPerformed, setSearchPerformed] = React.useState(false);
 
   const { data: properties = [], isLoading, error, isError, refetch } = useQuery({
     queryKey: ['properties', searchQuery],
     queryFn: () => fetchProperties(searchQuery),
+    enabled: searchPerformed,
     meta: {
       onError: (error) => {
         toast.error('Failed to fetch properties. Please try again later.');
@@ -24,6 +26,7 @@ const Index = () => {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    setSearchPerformed(true);
   };
 
   return (
@@ -52,11 +55,14 @@ const Index = () => {
           </Alert>
         )}
         
-        <ResultsGrid properties={properties} isLoading={isLoading} />
+        <ResultsGrid 
+          properties={properties} 
+          isLoading={isLoading} 
+          searchPerformed={searchPerformed} 
+        />
       </div>
     </div>
   );
 };
 
 export default Index;
-

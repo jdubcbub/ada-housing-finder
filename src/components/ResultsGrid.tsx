@@ -7,9 +7,17 @@ type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
 interface ResultsGridProps {
   properties: AdaUnit[];
   isLoading: boolean;
+  searchPerformed: boolean;
 }
 
-export default function ResultsGrid({ properties, isLoading }: ResultsGridProps) {
+export default function ResultsGrid({ properties, isLoading, searchPerformed }: ResultsGridProps) {
+  if (!searchPerformed) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px] text-center">
+        <p className="text-gray-500">Enter a neighborhood to search</p>
+      </div>
+    );
+  }
   
   if (isLoading) {
     return (
