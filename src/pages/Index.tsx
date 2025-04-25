@@ -9,11 +9,13 @@ import { toast } from '@/components/ui/sonner';
 const Index = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const { data: properties = [], isLoading, error } = useQuery({
+  const { data: properties = [], isLoading } = useQuery({
     queryKey: ['properties', searchQuery],
     queryFn: () => fetchProperties(searchQuery),
-    onError: (error) => {
-      toast.error('Failed to fetch properties. Please try again later.');
+    meta: {
+      onError: () => {
+        toast.error('Failed to fetch properties. Please try again later.');
+      },
     },
   });
 
