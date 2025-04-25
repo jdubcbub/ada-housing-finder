@@ -24,7 +24,7 @@ export default function ResultsGrid({ properties, isLoading, searchPerformed, se
     return (
       <div className="flex justify-center items-center min-h-[200px]">
         <div className="text-gray-500">
-          No units found in {searchQuery}. We're working hard to find units there. Please try another search.
+          No units found in {searchQuery}. We're working hard to extend our database. Please try another search.
         </div>
       </div>
     );
