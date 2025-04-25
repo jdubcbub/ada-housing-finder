@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SearchBar from '@/components/SearchBar';
 import ResultsGrid from '@/components/ResultsGrid';
-import { fetchProperties } from '@/services/googleSheets';
+import { fetchProperties } from '@/services/properties';
 import { toast } from '@/components/ui/sonner';
 import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -20,9 +19,6 @@ const Index = () => {
         console.error('Query error:', error);
       },
     },
-    // Retry failed requests a few times
-    retry: 2,
-    retryDelay: 1000,
   });
 
   const handleSearch = (query: string) => {
