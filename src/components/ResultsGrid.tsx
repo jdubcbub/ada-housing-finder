@@ -9,6 +9,10 @@ interface ResultsGridProps {
 }
 
 export default function ResultsGrid({ properties, isLoading }: ResultsGridProps) {
+
+  console.log('Is Loading?', isLoading);
+  console.log('Properties:', properties);
+  
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
