@@ -1,3 +1,8 @@
+
+import type { Database } from "@/integrations/supabase/types";
+
+type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
+
 function PropertyCard(props: AdaUnit) {
   const {
     building_name,
@@ -22,3 +27,5 @@ function PropertyCard(props: AdaUnit) {
     </div>
   );
 }
+
+export default PropertyCard;

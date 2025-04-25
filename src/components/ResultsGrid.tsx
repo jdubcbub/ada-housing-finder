@@ -1,3 +1,4 @@
+
 import type { Database } from '@/integrations/supabase/types';
 import PropertyCard from '@/components/PropertyCard';
 
@@ -25,8 +26,6 @@ export default function ResultsGrid({ properties, isLoading }: ResultsGridProps)
       </div>
     );
   }
-
-  <pre className="text-xs">{JSON.stringify(properties, null, 2)}</pre>
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
