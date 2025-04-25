@@ -1,29 +1,6 @@
-
 import React from 'react';
 import PropertyCard from './PropertyCard';
-
-interface Property {
-  buildingName: string;
-  address: string;
-  neighborhood: string;
-  unitNumber: string;
-  occupied: string;
-  availabilityDate: string;
-  squareFeet: number;
-  bedrooms: number;
-  bathrooms: number;
-  rollInShower: string;
-  grabBars: string;
-  wheelchairWidthDoors: string;
-  kitchenAccessible: string;
-  elevatorAccess: string;
-  rent: number;
-  incomeRestricted: string;
-  contactName: string;
-  phone: string;
-  email: string;
-  specialFeatures: string;
-}
+import type { Property } from '@/types/property';
 
 interface ResultsGridProps {
   properties: Property[];
