@@ -6,11 +6,12 @@ import ResultsGrid from '@/components/ResultsGrid';
 import { fetchProperties } from '@/services/googleSheets';
 import { toast } from '@/components/ui/sonner';
 import { AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const { data: properties = [], isLoading, error, isError } = useQuery({
+  const { data: properties = [], isLoading, error, isError, refetch } = useQuery({
     queryKey: ['properties', searchQuery],
     queryFn: () => fetchProperties(searchQuery),
     meta: {
@@ -19,6 +20,9 @@ const Index = () => {
         console.error('Query error:', error);
       },
     },
+    // Retry failed requests a few times
+    retry: 2,
+    retryDelay: 1000,
   });
 
   const handleSearch = (query: string) => {
@@ -37,10 +41,18 @@ const Index = () => {
         </div>
         
         {isError && (
-          <div className="flex items-center gap-2 p-4 mb-6 bg-red-50 text-red-800 rounded-md">
-            <AlertCircle size={20} />
-            <p>There was an error fetching properties. Please try again later.</p>
-          </div>
+          <Alert variant="destructive" className="mb-6">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              There was an error fetching properties. Please try again later.
+              <button 
+                onClick={() => refetch()} 
+                className="ml-2 underline text-blue-700 hover:text-blue-900"
+              >
+                Try Again
+              </button>
+            </AlertDescription>
+          </Alert>
         )}
         
         <ResultsGrid properties={properties} isLoading={isLoading} />
