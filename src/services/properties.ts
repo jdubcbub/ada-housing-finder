@@ -6,14 +6,19 @@ type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
 
 export const fetchProperties = async (query?: string): Promise<AdaUnit[]> => {
   try {
-    console.log('Fetching properties with query:', query);
+    // Correct common misspellings
+    const correctedQuery = query 
+      ? query.replace(/Capital Hill/gi, 'Capitol Hill')
+      : query;
+
+    console.log('Fetching properties with query:', correctedQuery);
     
     let queryBuilder = supabase
       .from('ada_units')
       .select('*');
     
-    if (query) {
-      queryBuilder = queryBuilder.ilike('neighborhood', `%${query}%`);
+    if (correctedQuery) {
+      queryBuilder = queryBuilder.ilike('neighborhood', `%${correctedQuery}%`);
     }
     
     const { data, error } = await queryBuilder;
@@ -30,3 +35,4 @@ export const fetchProperties = async (query?: string): Promise<AdaUnit[]> => {
     throw error;
   }
 }
+
