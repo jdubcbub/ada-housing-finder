@@ -28,7 +28,7 @@ const ResultsGrid = ({ properties, isLoading }: ResultsGridProps) => {
   if (properties.length === 0) {
     return (
       <div className="text-center py-10">
-        <p className="text-gray-500">No properties found. Try another neighborhood.</p>
+        <p className="text-gray-500">Please try another neighborhood.</p>
       </div>
     );
   }
