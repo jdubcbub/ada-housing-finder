@@ -29,6 +29,8 @@ export default function ResultsGrid({ properties, isLoading }: ResultsGridProps)
     );
   }
 
+  <pre className="text-xs">{JSON.stringify(properties, null, 2)}</pre>
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {properties.map((property, index) => (
