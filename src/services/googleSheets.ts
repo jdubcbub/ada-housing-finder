@@ -1,5 +1,27 @@
 
-import { Property } from './googleSheets';
+// Define the Property interface locally first
+export interface Property {
+  buildingName: string;
+  address: string;
+  neighborhood: string;
+  unitNumber: string;
+  occupied: string;
+  availabilityDate: string;
+  squareFeet: number;
+  bedrooms: number;
+  bathrooms: number;
+  rollInShower: string;
+  grabBars: string;
+  wheelchairWidthDoors: string;
+  kitchenAccessible: string;
+  elevatorAccess: string;
+  rent: number;
+  incomeRestricted: string;
+  contactName: string;
+  phone: string;
+  email: string;
+  specialFeatures: string;
+}
 
 export const fetchProperties = async (query?: string): Promise<Property[]> => {
   try {
