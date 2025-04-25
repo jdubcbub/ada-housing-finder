@@ -24,10 +24,11 @@ export interface Property {
 
 export const fetchProperties = async (query?: string): Promise<Property[]> => {
   try {
-    const response = await fetch('https://your-project.supabase.co/functions/fetch-properties', {
+    const response = await fetch('https://your-project.supabase.co/functions/v1/fetch-properties', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer your-anon-key'
       },
       body: JSON.stringify({ query }),
     });
