@@ -24,6 +24,7 @@ export interface Property {
 
 export const fetchProperties = async (query?: string): Promise<Property[]> => {
   try {
+    console.log('Fetching properties with query:', query);
     const response = await fetch('https://nmzbrzekynvyxkalxlvl.supabase.co/functions/v1/fetch-properties', {
       method: 'POST',
       headers: {
@@ -34,13 +35,17 @@ export const fetchProperties = async (query?: string): Promise<Property[]> => {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch properties');
+      const errorText = await response.text();
+      console.error('Error response:', response.status, errorText);
+      throw new Error(`Server responded with ${response.status}: ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('Properties received:', data.length);
     return data;
   } catch (error) {
     console.error('Error fetching properties:', error);
-    throw error;
+    // Return empty array instead of throwing to avoid constant error state
+    return [];
   }
 };
