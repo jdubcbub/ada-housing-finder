@@ -1,28 +1,33 @@
-import { supabase } from '@/integrations/supabase/client';
-import type { Database } from '@/integrations/supabase/types';
+
+import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 
 type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
 
-export async function fetchProperties(searchQuery?: string): Promise<AdaUnit[]> {
+export const fetchProperties = async (query?: string): Promise<AdaUnit[]> => {
   try {
-    console.log('Fetching properties with query:', searchQuery);
+    // Correct common misspellings
+    const correctedQuery = query 
+      ? query.replace(/Capital Hill/gi, 'Capitol Hill')
+      : query;
 
+    console.log('Fetching properties with query:', correctedQuery);
+    
     let queryBuilder = supabase
       .from('ada_units')
-      .select('*')
-      .eq('occupied', 'N'); // ✅ Only get AVAILABLE units
-
-    if (searchQuery) {
-      queryBuilder = queryBuilder.ilike('neighborhood', `%${searchQuery}%`);
+      .select('*');
+    
+    if (correctedQuery) {
+      queryBuilder = queryBuilder.ilike('neighborhood', `%${correctedQuery}%`);
     }
-
+    
     const { data, error } = await queryBuilder;
-
+    
     if (error) {
       console.error('Supabase error:', error);
       throw error;
     }
-
+    
     console.log('Properties fetched:', data?.length);
     return data || [];
   } catch (error) {
@@ -30,3 +35,4 @@ export async function fetchProperties(searchQuery?: string): Promise<AdaUnit[]> 
     throw error;
   }
 }
+

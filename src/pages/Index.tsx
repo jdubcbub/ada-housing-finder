@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SearchBar from '@/components/SearchBar';
@@ -9,11 +10,12 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [isSearchMode, setIsSearchMode] = React.useState(false);
+  const [searchPerformed, setSearchPerformed] = React.useState(false);
 
   const { data: properties = [], isLoading, error, isError, refetch } = useQuery({
     queryKey: ['properties', searchQuery],
     queryFn: () => fetchProperties(searchQuery),
+    enabled: searchPerformed,
     meta: {
       onError: (error) => {
         toast.error('Failed to fetch properties. Please try again later.');
@@ -24,32 +26,20 @@ const Index = () => {
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setIsSearchMode(!!query); // Set search mode based on query existence
+    setSearchPerformed(true);
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold text-center mb-8 text-slate-800">
-          ADA Accessible Housing Finder
+          ADA Housing Finder
         </h1>
-
+        
         <div className="mb-12">
           <SearchBar onSearch={handleSearch} />
-
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setIsSearchMode(false);
-              }}
-              className="px-6 py-2 text-sm font-semibold text-white bg-blue-700 rounded hover:bg-blue-800 transition-colors"
-            >
-              {isSearchMode ? 'View All Units' : 'Search Neighborhood'}
-            </button>
-          </div>
         </div>
-
+        
         {isError && (
           <Alert variant="destructive" className="mb-6">
             <AlertCircle className="h-4 w-4" />
@@ -64,8 +54,13 @@ const Index = () => {
             </AlertDescription>
           </Alert>
         )}
-
-        <ResultsGrid properties={properties} isLoading={isLoading} />
+        
+        <ResultsGrid 
+          properties={properties} 
+          isLoading={isLoading} 
+          searchPerformed={searchPerformed}
+          searchQuery={searchQuery}
+        />
       </div>
     </div>
   );
