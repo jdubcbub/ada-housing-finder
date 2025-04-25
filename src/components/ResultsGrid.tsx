@@ -9,9 +9,6 @@ interface ResultsGridProps {
 }
 
 export default function ResultsGrid({ properties, isLoading }: ResultsGridProps) {
-
-  console.log('Is Loading?', isLoading);
-  console.log('Properties:', properties);
   
   if (isLoading) {
     return (
