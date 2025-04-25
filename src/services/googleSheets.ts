@@ -1,26 +1,5 @@
-// Define the Property interface locally first
-export interface Property {
-  buildingName: string;
-  address: string;
-  neighborhood: string;
-  unitNumber: string;
-  occupied: string;
-  availabilityDate: string;
-  squareFeet: number;
-  bedrooms: number;
-  bathrooms: number;
-  rollInShower: string;
-  grabBars: string;
-  wheelchairWidthDoors: string;
-  kitchenAccessible: string;
-  elevatorAccess: string;
-  rent: number;
-  incomeRestricted: string;
-  contactName: string;
-  phone: string;
-  email: string;
-  specialFeatures: string;
-}
+
+import type { Property } from '@/types/property';
 
 export const fetchProperties = async (query?: string): Promise<Property[]> => {
   try {
@@ -90,48 +69,50 @@ export const fetchProperties = async (query?: string): Promise<Property[]> => {
 const getMockProperties = (): Property[] => {
   return [
     {
-      buildingName: "Skyline Apartments",
+      id: "1",
+      building_name: "Skyline Apartments",
       address: "123 Main St",
       neighborhood: "Downtown",
-      unitNumber: "101",
+      unit_number: "101",
       occupied: "N",
-      availabilityDate: "2025-05-01",
-      squareFeet: 750,
+      date_of_availability: "2025-05-01",
+      square_feet: 750,
       bedrooms: 1,
       bathrooms: 1,
-      rollInShower: "Y",
-      grabBars: "Y",
-      wheelchairWidthDoors: "Y",
-      kitchenAccessible: "Y",
-      elevatorAccess: "Y",
+      roll_in_shower: "Y",
+      grab_bars: "Y",
+      wheelchair_width_doors: "Y",
+      kitchen_accessible: "Y",
+      elevator_access: "Y",
       rent: 1500,
-      incomeRestricted: "N",
-      contactName: "John Smith",
+      income_restricted: "N",
+      contact_name: "John Smith",
       phone: "555-123-4567",
       email: "john@example.com",
-      specialFeatures: "Near public transit, pet friendly"
+      special_features: "Near public transit, pet friendly"
     },
     {
-      buildingName: "Harbor View",
+      id: "2",
+      building_name: "Harbor View",
       address: "456 Ocean Ave",
       neighborhood: "Waterfront",
-      unitNumber: "205",
+      unit_number: "205",
       occupied: "N",
-      availabilityDate: "2025-05-15",
-      squareFeet: 900,
+      date_of_availability: "2025-05-15",
+      square_feet: 900,
       bedrooms: 2,
       bathrooms: 1.5,
-      rollInShower: "N",
-      grabBars: "Y",
-      wheelchairWidthDoors: "Y",
-      kitchenAccessible: "N",
-      elevatorAccess: "Y",
+      roll_in_shower: "N",
+      grab_bars: "Y",
+      wheelchair_width_doors: "Y",
+      kitchen_accessible: "N",
+      elevator_access: "Y",
       rent: 1800,
-      incomeRestricted: "Y",
-      contactName: "Sarah Johnson",
+      income_restricted: "Y",
+      contact_name: "Sarah Johnson",
       phone: "555-987-6543",
       email: "sarah@example.com",
-      specialFeatures: "Water view, fitness center"
+      special_features: "Water view, fitness center"
     }
   ];
 };
