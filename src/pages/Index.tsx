@@ -58,7 +58,8 @@ const Index = () => {
         <ResultsGrid 
           properties={properties} 
           isLoading={isLoading} 
-          searchPerformed={searchPerformed} 
+          searchPerformed={searchPerformed}
+          searchQuery={searchQuery}
         />
       </div>
     </div>

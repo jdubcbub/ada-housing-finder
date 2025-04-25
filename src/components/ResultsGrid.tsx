@@ -8,9 +8,10 @@ interface ResultsGridProps {
   properties: AdaUnit[];
   isLoading: boolean;
   searchPerformed: boolean;
+  searchQuery?: string;
 }
 
-export default function ResultsGrid({ properties, isLoading, searchPerformed }: ResultsGridProps) {
+export default function ResultsGrid({ properties, isLoading, searchPerformed, searchQuery }: ResultsGridProps) {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
@@ -22,7 +23,9 @@ export default function ResultsGrid({ properties, isLoading, searchPerformed }: 
   if (searchPerformed && properties.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
-        <div className="text-gray-500">No units found. Please try searching another neighborhood</div>
+        <div className="text-gray-500">
+          No units found in {searchQuery}. Please try searching another neighborhood.
+        </div>
       </div>
     );
   }
@@ -39,4 +42,3 @@ export default function ResultsGrid({ properties, isLoading, searchPerformed }: 
     </div>
   );
 }
-
