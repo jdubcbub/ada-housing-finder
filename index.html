@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,6 +21,16 @@
     <meta name="googlebot" content="noindex">
     <meta name="googlebot-news" content="noindex">
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-66ZD7VJF7F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-66ZD7VJF7F');
+    </script>
+
     <script>
       // Redirect www to non-www
       if (window.location.hostname.startsWith('www.')) {
@@ -35,3 +46,4 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
