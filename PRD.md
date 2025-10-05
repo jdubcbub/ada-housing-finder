@@ -136,5 +136,20 @@ Deliver an intuitive and reliable search platform for ADA-compliant housing list
 ## 10. Appendices
 
 ### 📚 Glossary
-- **ADA:** Americans with D
+- **ADA:** Americans with Disabilities Act – accessibility standards for housing and public spaces.  
+- **WCAG:** Web Content Accessibility Guidelines.  
+- **PII:** Personally Identifiable Information.  
+- **NPS:** Net Promoter Score – user satisfaction metric.
+
+### 📎 Reference Materials
+- Supabase integration schema.
+- Wireframes & Figma mockups (to be added).
+- API schema draft (if integrating third-party housing feeds).
+
+---
+
+### 📄 Revision History
+| Version | Date | Author | Summary |
+|----------|------|---------|----------|
+| v2.0 | Oct 2025 | Jen Woolfe | Full PRD rewrite for ADA Housing Finder v2 |
 
