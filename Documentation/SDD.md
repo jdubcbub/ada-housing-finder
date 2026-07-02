@@ -405,11 +405,14 @@ Add monitoring, rate limiting, security controls, and production deployment safe
 ## 18. Open Questions
 
 - What data should remain in Supabase during migration?
+  - A: The current test data.
 - Will the backend replace Supabase entirely or sit in front of it temporarily?
+  - A: Replace entirely.
 - What is the authoritative source for accessibility verification?
-- Will messaging be real-time from day one?
-- Which cloud services are mandatory for v1 of the refactor?
+- Will messaging be real-time from day one? NO
+- Which cloud services are mandatory for v1 of the refactor? NONE
 - What is the minimum feature set for launch?
+  - A: Requires a meeting to map a critical E2E user journey
 
 ---
 
