@@ -1,5 +1,4 @@
 PORT=3000 <!-- or your preferred port # -->
-VERSION=v1
 URL=http://localhost: <!-- For local testing -->
 
 <!-- Notes: be sure there are no spaces around the = sign (e.g. PORT=3000) -->
