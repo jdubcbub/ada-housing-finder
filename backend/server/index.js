@@ -3,7 +3,12 @@ import 'dotenv/config';
 
 const app = express();
 const port = parseInt(process.env.PORT, 10);
-const url = process.env.URL+port;
+const version = process.env.VERSION;
+const url = process.env.URL+port+"/"+version;
+
+app.listen(port, () => {
+  console.log(`Server running at ${url}`);
+});
 
 app.get("/v1", (req, res) => {
   res.send("<h1>The BackEnd (_|_)</h1>");
@@ -44,8 +49,4 @@ app.get("/v1/searches", (req, res) => {
 // POST	/api/v1/messages	Send message
 app.post("/v1/messages", (req, res) => {
   console.log("for sending messages");
-});
-
-app.listen(port, () => {
-  console.log(`Server running at ${url}`);
 });
