@@ -12,3 +12,15 @@
 3.  The console output should give the url where the app is running, open it or copy to an API testing software like Postman.
 
 4. You should see text rendered that reads "The BackEnd (\_|_)".
+
+## Current endpoints
+
+| METHOD | ROUTE | PURPOSE |
+| --- | --- | --- |
+| GET | /listings | View all listings |
+| GET | /listings/:id | View details of a listing |
+| POST | /listings | Add a listing |
+| PATCH | /listings/:id | Update a listing |
+| GET | /search | View saved searches |
+| POST | /verifications | Submit a verification |
+| POST | /messages | Send a message |
