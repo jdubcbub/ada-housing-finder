@@ -5,9 +5,9 @@
     - **IMPORTANT**: Change the name of the file to .env, then save.
     - `.env` files are explicitly ignored when uploading to GitHub, and therefore are unique to your local copy. Any global changes that cannot be demonstrated in the env_example file will need to be communicated verbally or in private messaging.
 
-2.  From inside the `server` directory:
+2.  From inside the `backend` directory:
     - Perform an `npm install`
-    - Then `npm start` to run the backend
+    - Then `npm start` to run the backend server
 
 3.  The console output should give the url where the app is running, open it or copy to an API testing software like Postman.
 
