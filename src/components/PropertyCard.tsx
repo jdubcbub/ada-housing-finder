@@ -1,8 +1,10 @@
-import type { Database } from '@/integrations/supabase/types';
+import { Link } from 'react-router-dom';
+import type { Property } from '@/types/property';
 
-type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
+type AdaUnit = Property;
 
 function PropertyCard({
+  id,
   building_name,
   address,
   unit_number,
@@ -50,6 +52,13 @@ function PropertyCard({
 
       <div className="mt-4">
         <p className="text-lg font-bold text-green-700">${rent?.toLocaleString()} / month</p>
+        <Link
+          to={`/units/${id}`}
+          className="mt-2 inline-block text-blue-700 underline hover:text-blue-900"
+          aria-label={`View details for ${building_name}, unit ${unit_number}`}
+        >
+          View details
+        </Link>
       </div>
     </div>
   );

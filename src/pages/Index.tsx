@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'react-router-dom';
 import SearchBar from '@/components/SearchBar';
 import ResultsGrid from '@/components/ResultsGrid';
 import { fetchProperties } from '@/services/properties';
@@ -9,8 +10,10 @@ import { AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [searchPerformed, setSearchPerformed] = React.useState(false);
+  // Search lives in the URL (?q=) so Back from a details page returns to the results.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') ?? '';
+  const searchPerformed = searchParams.has('q');
 
   const { data: properties = [], isLoading, error, isError, refetch } = useQuery({
     queryKey: ['properties', searchQuery],
@@ -25,19 +28,18 @@ const Index = () => {
   });
 
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setSearchPerformed(true);
+    setSearchParams({ q: query });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold text-center mb-8 text-slate-800">
           ADA Housing Finder
         </h1>
         
         <div className="mb-12">
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} initialQuery={searchQuery} />
         </div>
         
         {isError && (
@@ -60,9 +62,10 @@ const Index = () => {
           isLoading={isLoading} 
           searchPerformed={searchPerformed}
           searchQuery={searchQuery}
+          isError={isError}
         />
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -1,14 +1,15 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "server setup for local testing",
+  "description": "API for ADA Housing Finder. Serves fictional test listings from src/listings.json.",
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.tsx",
+  "main": "src/index.tsx",
   "scripts": {
     "start": "nodemon --watch src --exec tsx src/index.tsx",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx --test src/*.test.tsx",
+    "typecheck": "tsc --noEmit -p ."
   },
   "dependencies": {
     "dotenv": "^17.4.2",
