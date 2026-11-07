@@ -1,76 +1,45 @@
-# Welcome to your Lovable project
+# ADA Housing Finder
 
-## Project info
+A housing discovery app that helps people find accessible housing, starting with Seattle.
+All listing data in this repo and in the development database is test data.
 
-**URL**: https://lovable.dev/projects/fa491306-41b1-4565-95fb-4e8a140838f4
+## Stack
 
-## How can I edit this code?
+Vite, React 18, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, React Router.
+Listings come from the Express backend in `backend/`, which serves the fictional
+test units in `backend/src/listings.json`. In development, Vite forwards `/api/*`
+requests to the backend on port 3001.
 
-There are several ways of editing your application.
+## Run locally
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/fa491306-41b1-4565-95fb-4e8a140838f4) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js 20 or later.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+npm ci
+npm --prefix backend ci
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm run api        # terminal 1: backend on http://localhost:3001
+npm run dev        # terminal 2: app on http://localhost:8080
 ```
 
-**Edit a file directly in GitHub**
+To add or change test units, edit `backend/src/listings.json`. The backend
+re-reads the file on every request, so there's no need to restart it.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Checks
 
-**Use GitHub Codespaces**
+```sh
+npm run lint
+npm run typecheck
+npm run test:run
+npm run build
+npm run check      # all of the above, plus backend tests and type check
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The critical journey test (`src/__tests__/criticalJourney.test.tsx`) covers
+open site, search, view results, and open property details, using fixed test
+units so it runs without the backend. Backend API tests are in
+`backend/src/listings.test.tsx`.
 
-## What technologies are used for this project?
+## Docs
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/fa491306-41b1-4565-95fb-4e8a140838f4) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
-
-
-# Test - remove me
+Product and design docs are in `docs/` (PRD, SDD, ADA features).

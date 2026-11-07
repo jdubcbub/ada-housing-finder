@@ -1,38 +1,26 @@
+import type { Property } from "@/types/property";
 
-import { supabase } from "@/integrations/supabase/client";
-import type { Database } from "@/integrations/supabase/types";
+// In development, Vite forwards /api to the backend (see vite.config.ts).
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
-type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
-
-export const fetchProperties = async (query?: string): Promise<AdaUnit[]> => {
-  try {
-    // Correct common misspellings
-    const correctedQuery = query 
-      ? query.replace(/Capital Hill/gi, 'Capitol Hill')
-      : query;
-
-    console.log('Fetching properties with query:', correctedQuery);
-    
-    let queryBuilder = supabase
-      .from('ada_units')
-      .select('*');
-    
-    if (correctedQuery) {
-      queryBuilder = queryBuilder.ilike('neighborhood', `%${correctedQuery}%`);
-    }
-    
-    const { data, error } = await queryBuilder;
-    
-    if (error) {
-      console.error('Supabase error:', error);
-      throw error;
-    }
-    
-    console.log('Properties fetched:', data?.length);
-    return data || [];
-  } catch (error) {
-    console.error('Error fetching properties:', error);
-    throw error;
+const getJson = async <T,>(path: string): Promise<T> => {
+  const res = await fetch(`${API_BASE}${path}`);
+  if (!res.ok) {
+    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
   }
-}
+  return res.json() as Promise<T>;
+};
 
+export const fetchProperties = async (query?: string): Promise<Property[]> => {
+  const params = query ? `?${new URLSearchParams({ neighborhood: query })}` : "";
+  return getJson<Property[]>(`/listings${params}`);
+};
+
+export const fetchPropertyById = async (id: string): Promise<Property | null> => {
+  const res = await fetch(`${API_BASE}/listings/${encodeURIComponent(id)}`);
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+  }
+  return res.json() as Promise<Property>;
+};
