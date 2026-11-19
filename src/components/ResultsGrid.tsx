@@ -1,23 +1,29 @@
 
-import type { Database } from '@/integrations/supabase/types';
+import type { Property } from '@/types/property';
 import PropertyCard from '@/components/PropertyCard';
 
-type AdaUnit = Database['public']['Tables']['ada_units']['Row'];
+type AdaUnit = Property;
 
 interface ResultsGridProps {
   properties: AdaUnit[];
   isLoading: boolean;
   searchPerformed: boolean;
   searchQuery?: string;
+  isError?: boolean;
 }
 
-export default function ResultsGrid({ properties, isLoading, searchPerformed, searchQuery }: ResultsGridProps) {
+export default function ResultsGrid({ properties, isLoading, searchPerformed, searchQuery, isError = false }: ResultsGridProps) {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
         <div className="text-gray-500">Loading available units...</div>
       </div>
     );
+  }
+
+  // A failed request is reported by the error alert, not as "no units found".
+  if (isError) {
+    return null;
   }
 
   if (searchPerformed && properties.length === 0) {
@@ -36,8 +42,8 @@ export default function ResultsGrid({ properties, isLoading, searchPerformed, se
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {properties.map((property, index) => (
-        <PropertyCard key={index} {...property} />
+      {properties.map((property) => (
+        <PropertyCard key={property.id} {...property} />
       ))}
     </div>
   );
